@@ -27,12 +27,22 @@ useEffect(()=>{
 },[])
 
    
-    const handleSearch=(e)=>{
-        alert(searchquery)
-        setsearchquery("-------")
-
-
-    }
+    const handleSearch=async(e)=>{
+        e.preventDefault();
+        if(!searchquery.trim())return
+        if(loading)return
+        setloading(true)
+        try{
+            const searchResults=await searchMovies(searchquery)
+            setMovies(searchResults)
+            setError(null)
+        }catch(err){
+            console.log(err)
+            setError("Failed to search movies..")
+        }finally{
+            setloading(false)
+        }
+    };
     return(
         <div className="home">
             <form onSubmit={handleSearch}className="search-form">
@@ -47,7 +57,7 @@ useEffect(()=>{
             {loading?(<div className="loading">Loading..</div>
             ):(
                 
-            <div className="movie-grid">
+            <div className="movies-grid">
                 {movies.map((movie)=>movie.title.toLocaleLowerCase().startsWith(searchquery)&&(
                     <MovieCard movie={movie} key={movie.id}/>
                 ))}

@@ -1,3 +1,4 @@
+// import "../css/MovieCard.css"
 import "../css/MovieCard.css"
 function MovieCard({movie}){
     function OnFavouriteClick(){
@@ -8,7 +9,7 @@ function MovieCard({movie}){
         <div className="movie-poster">
             <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title}/>
             <div className="movie-overlay">
-                <button className="favourite-button" onClick={OnFavouriteClick}>
+                <button className="favorite-btn" onClick={OnFavouriteClick}>
                     💖
                 </button>
             </div>
